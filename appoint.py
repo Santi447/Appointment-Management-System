@@ -23,6 +23,15 @@ class Appointment:
     def start_time_hour_getter(self):
         return self.start_time_hour
     
+    def get_appt_type_desc(self):
+        descriptions = {
+            0: "Available",
+            1: "Men’s Cut",
+            2: "Ladies’ Cut",
+            3: "Men’s Colouring",
+            4: "Ladies’ Colouring",}
+        return descriptions.get(self.appt_type,"invalid Input")
+    
     # setter methods for client name, client phone, client appointment type
     def client_name_setter(self,client_name_value):
         self.client_name = client_name_value
