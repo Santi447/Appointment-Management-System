@@ -49,6 +49,11 @@ class Appointment:
         self.appt_type = appt_type_value
         return self.appt_type
     
+    def schedule(self,name,phone,type):
+        self.client_name = name
+        self.client_phone = phone
+        self.appt_type = type
+        
      
 
                    
