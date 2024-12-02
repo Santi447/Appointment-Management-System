@@ -30,8 +30,7 @@ class Appointment:
             2: "Ladies’ Cut",
             3: "Men’s Colouring",
             4: "Ladies’ Colouring",}
-        return descriptions.get(self.appt_type,"invalid Input")
-    
+        return descriptions.get(self.appt_type,"invalid Input") 
 
     def get_end_time_hour(self): 
         return float(self.start_time_hour) + 1
@@ -65,11 +64,4 @@ class Appointment:
     
 # __str__ method
     def __str__(self):
-        return "{:<13}{:<22}{:>11}{:>15}{:>14}".format(self.client_name,self.client_phone,self.appt_type,self.day_of_week,self.start_time_hour) 
-
-
-            
-        
-     
-
-                   
+        return "{:<13}{:<22}{:>11}{:>15}{:>14}".format(self.client_name,self.client_phone,self.appt_type,self.day_of_week,self.start_time_hour)                   
