@@ -1,5 +1,5 @@
 class Appointment:
-    def __init__(self,client_name, client_phone, appt_type, day_of_week, start_time_hour):
+    def __init__(self,day_of_week, start_time_hour,client_name = None, client_phone = None, appt_type = None,):
         self.client_name = client_name
         self.client_phone = client_phone
         self.appt_type = appt_type
@@ -53,6 +53,12 @@ class Appointment:
         self.client_name = name
         self.client_phone = phone
         self.appt_type = type
+
+    def cancel(self,name,phone,type):
+        self.client_name = None
+        self.client_phone = None
+        self.appt_type = None
+            
         
      
 
