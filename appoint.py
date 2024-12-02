@@ -34,7 +34,7 @@ class Appointment:
     
 
     def get_end_time_hour(self): 
-        return self.start_time_hour + 1
+        return float(self.start_time_hour) + 1
     
     # setter methods for client name, client phone, client appointment type
     def client_name_setter(self,client_name_value):
@@ -48,21 +48,26 @@ class Appointment:
     def appt_type_setter(self,appt_type_value):
         self.appt_type = appt_type_value
         return self.appt_type
-    
+    # schedule method created
     def schedule(self,name,phone,type):
         self.client_name = name
         self.client_phone = phone
         self.appt_type = type
-
+# cancel method
     def cancel(self,name,phone,type):
         self.client_name = None
         self.client_phone = None
         self.appt_type = None
 
-
+# formated record method
     def format_record(self):
         return f"{self.client_name},{self.client_phone},{self.appt_type},{self.day_of_week},{self.start_time_hour}"
-        
+    
+# __str__ method
+    def __str__(self):
+        return "{:<13}{:<22}{:>11}{:>15}{:>14}".format(self.client_name,self.client_phone,self.appt_type,self.day_of_week,self.start_time_hour) 
+
+
             
         
      
