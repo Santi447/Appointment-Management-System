@@ -58,6 +58,11 @@ class Appointment:
         self.client_name = None
         self.client_phone = None
         self.appt_type = None
+
+
+    def format_record(self):
+        return f"{self.client_name},{self.client_phone},{self.appt_type},{self.day_of_week},{self.start_time_hour}"
+        
             
         
      
