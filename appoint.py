@@ -32,10 +32,9 @@ class Appointment:
             4: "Ladies’ Colouring",}
         return descriptions.get(self.appt_type,"invalid Input")
     
-    
-    def get_end_time_hour(self):
-        self.start_time_hour + 1 
-        return self.start_time_hour
+
+    def get_end_time_hour(self): 
+        return self.start_time_hour + 1
     
     # setter methods for client name, client phone, client appointment type
     def client_name_setter(self,client_name_value):
