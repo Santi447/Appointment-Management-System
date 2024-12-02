@@ -6,7 +6,7 @@ class Appointment:
         self.day_of_week = day_of_week
         self.start_time_hour = start_time_hour
 
-
+    #  getter methods
     def client_name_getter(self):
         return self.client_name
     
@@ -23,7 +23,7 @@ class Appointment:
     def start_time_hour_getter(self):
         return self.start_time_hour
     
-
+    # setter methods for client name, client phone, client appointment type
     def client_name_setter(self,client_name_value):
         self.client_name = client_name_value
         return self.client_name
