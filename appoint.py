@@ -68,15 +68,3 @@ class Appointment:
             f"{self.__client_name:<20}{self.__client_phone:<15}{self.__day_of_week:<10}"
             f"{self.__start_time_hour:<2}:00  -  {end_time:<2}:00     {appt_type:<20}"
             )
-    
-def main():
-    appt = Appointment("Thursday", 11, "Steven","403-600-6000",1)
-    appt2 = Appointment("Thursday", 13, "Gabriela", "368-111-9999", 4)
-    print("Client Name         Phone          Day       Start     End       Type")
-    print(f"{"-" * 85}")
-    print(appt)
-    print(appt2)
-    Appointment.cancel(appt)
-    print(appt)
-
-main()
