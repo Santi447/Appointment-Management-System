@@ -60,6 +60,9 @@ class Appointment:
             f"{self.__client_name:<20}{self.__client_phone:<15}{self.__day_of_week:<10}"
             f"{self.__start_time_hour:<2}:00  -  {end_time:<2}:00     {appt_type:<20}"
             )
+def print_info_table():
+    print("Client Name         Phone          Day       Start     End       Type")
+    print(f"{"-" * 85}")            
     
 
 
@@ -92,11 +95,15 @@ def main():
     appt = Appointment("Thursday", 11, "Steven","403-600-6000",1)
     appt2 = Appointment("Thursday", 13, "Gabriela", "368-111-9999", 4)
     object_list = [appt,appt2]
-    print("Client Name         Phone          Day       Start     End       Type")
-    print(f"{"-" * 85}")
+    print_info_table()
     print(appt)
     print(appt2)
+
+
+if choice == 2:
+
     name = input("Enter Client Name: ").capitalize()
+    print_info_table()
     show_appointments_by_name(object_list,name)
     # print("*"*2,"Cancel an appointment","*"*2)
     # day_of_week = input("What day: ").strip().capitalize()
