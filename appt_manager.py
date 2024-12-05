@@ -11,3 +11,13 @@ def find_appointments_by_time(object_list,day_of_week,start_time):
            if object != object_list:
             print("That time slot isn't booked and doesn't need to be cancelled")
             return None 
+
+
+def show_appointments_by_name(object_list,name):
+
+          for objects in object_list:
+              if objects.get_client_name() == name:
+                return objects.__str__()
+              else:
+               print("no appointments found.")    
+               
