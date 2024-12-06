@@ -20,20 +20,17 @@ class Appointment:
     
     def get_start_time_hour(self):
         return self.__start_time_hour
-    
     def get_appt_type_desc(self):
-        if self.__appt_type == 0:
-            description = "Available"
-        elif self.__appt_type == 1:
-            description = "Mens Cut"
-        elif self.__appt_type == 2:
-            description = "Ladies Cut"
-        elif self.__appt_type == 3:
-            description = "Mens Colouring"
-        elif self.__appt_type == 4:
-            description = "Ladies Colouring"
-
-        return description
+        descriptions = {
+            0: "Available",
+            1: "Men’s Cut",
+            2: "Ladies’ Cut",
+            3: "Men’s Colouring",
+            4: "Ladies’ Colouring",}
+        if self.__appt_type in descriptions:
+             return descriptions[self.__appt_type]
+        else:
+             return "invalid Input"
 
     def get_end_time_hour(self):
         end_time = self.__start_time_hour + 1
