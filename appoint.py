@@ -1,10 +1,10 @@
 class Appointment:
-    def __init__(self, day, start, name = "", phone = "", type = 0):
-        self.__client_name = name
-        self.__client_phone = phone
-        self.__appt_type = type
-        self.__day_of_week = day
-        self.__start_time_hour = start
+    def __init__(self, day_of_week, start_time_hour, client_name = "", client_phone = "", appt_type = 0):
+        self.__client_name = client_name
+        self.__client_phone = client_phone
+        self.__appt_type = appt_type
+        self.__day_of_week = day_of_week
+        self.__start_time_hour = start_time_hour
     
     def get_client_name(self):
         return self.__client_name
