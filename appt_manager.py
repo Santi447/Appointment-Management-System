@@ -10,19 +10,19 @@ def print_info_table():
 
 
 
-def find_appointments_by_time(object_list,day_of_week,start_time):
-        #    print("*"*2,"Cancel an appointment","*"*2)
-        #    day_of_week = input("What day: ").strip().capitalize()
-        #    start_time = int(input("Enter start hour (24 hour clock): ").strip())
-           for object in object_list:
-                if object.get_day_of_week() == day_of_week and object.get_start_time_hour() == start_time:
-                    print(f"Appointment: {object.get_day_of_week()} {object.get_start_time_hour()}:00 - {object.get_end_time_hour()}:00 for {object.get_client_name()} has been cancelled!")
+# def find_appointments_by_time(object_list,day_of_week,start_time):
+#         #    print("*"*2,"Cancel an appointment","*"*2)
+#         #    day_of_week = input("What day: ").strip().capitalize()
+#         #    start_time = int(input("Enter start hour (24 hour clock): ").strip())
+#            for object in object_list:
+#                 if object.get_day_of_week() == day_of_week and object.get_start_time_hour() == start_time:
+#                     print(f"Appointment: {object.get_day_of_week()} {object.get_start_time_hour()}:00 - {object.get_end_time_hour()}:00 for {object.get_client_name()} has been cancelled!")
                                
-                    return object
+#                     return object
                    
-           if object != object_list:
-            print("That time slot isn't booked and doesn't need to be cancelled")
-            return None 
+#            if object != object_list:
+#             print("That time slot isn't booked and doesn't need to be cancelled")
+#             return None 
 
 
 # def show_appointments_by_name(object_list,name):
@@ -59,6 +59,7 @@ def find_appointments_by_time(object_list,day_of_week,start_time):
 client_name = ""
 client_phone = ""
 appt_type = 0
+TYPE_OF_APPOINTMENT_LIST = ["0: Available", "1: Men’s cut $40","2: Ladies cut $60","3: Men’s Colouring $40","4. Ladies Colouring $80"]
 DAY_OF_WEEK = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
 START_TIME_HOUR = [9, 10, 11, 12, 13, 14, 15, 16]
 appointments_list = []
@@ -99,15 +100,16 @@ def print_menu():
     return selection
 
 def find_appointments_by_time(object_list,day_of_week,start_time):
-           for object in object_list:
-                if object.get_day_of_week() == day_of_week and object.get_start_time_hour() == start_time:
-                    print(f"Appointment: {object.get_day_of_week()} {object.get_start_time_hour()}:00 - {object.get_end_time_hour()}:00 for {object.get_client_name()} has been cancelled!")
+           
+           for objects in object_list:
+                if objects.get_day_of_week() == day_of_week and objects.get_start_time_hour() == start_time:
+                    # print(f"Appointment: {object.get_day_of_week()} {object.get_start_time_hour()}:00 - {object.get_end_time_hour()}:00 for {object.get_client_name()} has been cancelled!")
                                
-                    return object
-                   
-           if object != object_list:
-            print("That time slot isn't booked and doesn't need to be cancelled")
-            return None    
+                    return objects
+                 
+        
+            # print("That time slot isn't booked and doesn't need to be cancelled")
+           return None    
 
 def show_appointments_by_name(object_list,name):
           found = False
@@ -134,7 +136,31 @@ def save_scheduled_appointments():
     pass
 
 def schedule_appointment():
-    pass
+    print("\n** Schedule an appointment **")
+    day = input("What day: ").strip().title()
+    start_hour = int(input("Enter start hour (24 hour clock): "))
+    if (day in DAY_OF_WEEK and start_hour in START_TIME_HOUR):
+               i = 0
+               for appointment in appointments_list: 
+        
+                    time = appointment.get_start_time_hour()
+                    appt_day = appointment.get_day_of_week()
+                    if time == start_hour and appt_day == day:
+                       type = appointment.get_appointment_type()
+                       if type == 0:
+                             client_name = input("Client Name: ").strip().capitalize()
+                             client_phone = input("Client Phone: ").strip()
+                             print("Appointment types")
+                             print (", ".join(TYPE_OF_APPOINTMENT_LIST[1:]))
+                             appt_type = int(input("Type of Appointment: "))
+                             appointment = Appointment(appt_day,time,client_name,client_phone,appt_type)
+                             appointments_list.append(appointment)
+                             print(f"Ok, {client_name}'s appointment is scheduled!")                                                        
+                       else:
+                           print("Sorry that time slot is booked already!")
+                    i += 1
+    else:
+        print("Sorry that time slot is not in the weekly calendar!")
 
 def main():
     print("Starting the Appointment Manager System")
@@ -149,40 +175,90 @@ def main():
         print()
         selection = print_menu()
         if selection == 1:
-            print("\n** Schedule an appointment **")
-            day = input("What day: ").strip().title()
-            start_hour = int(input("Enter start hour (24 hour clock): "))
+            schedule_appointment()
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            # print("\n** Schedule an appointment **")
+            # day = input("What day: ").strip().title()
+            # start_hour = int(input("Enter start hour (24 hour clock): "))
+            # if (day in DAY_OF_WEEK and start_hour in START_TIME_HOUR): 
+            #    i = 0
+            #    for appointment in appointments_list: 
+        
+            #         time = appointment.get_start_time_hour()
+            #         appt_day = appointment.get_day_of_week()
+            #         if time == start_hour and appt_day == day:
+            #             type = appointment.get_appointment_type()
+            #             if type == 0:           
+            #                  client_name = input("Client Name: ").strip().capitalize()
+            #                  client_phone = input("Client Phone: ").strip()
+            #                  print("Appointment types")
+            #                  print (", ".join(TYPE_OF_APPOINTMENT_LIST[1:]))
+            #                  appt_type = int(input("Type of Appointment: "))            
+            #                  appointments_list[i] = Appointment(appt_day,time,appointment.schedule(client_name,client_phone,appt_type))
+                            
+                   
+                             
+         
 
-            if (day in DAY_OF_WEEK and start_hour in START_TIME_HOUR): 
-                i = 0
-                for appt in appointments_list:
-                    time = appt.get_start_time_hour()
-                    appt_day = appt.get_day_of_week()
-                    if time == start_hour and appt_day == day:
-                        type = appt.get_appointment_type()
-                        if type == 0:
-                            client_name = input("Client Name: ").strip().title()
-                            client_phone = input("Client Phone: ").strip()
-                            print("Appointment types")
-                            print("1: Mens Cut $40, 2: Ladies Cut $60, 3: Mens Colouring $40, 4: Ladies Colouring $80")
-                            appt_type = int(input("Type of Appointment: "))
-                            appointments_list[i] = Appointment(day, time, client_name, client_phone, appt_type)
-                            print(f"Ok, {client_name}'s appointment is scheduled!")
-                        else:
-                            print("Sorry that time slot is booked already!")
-                    i += 1
+        # if selection == 1:
+        #     print("\n** Schedule an appointment **")
+        #     day = input("What day: ").strip().title()
+        #     start_hour = int(input("Enter start hour (24 hour clock): "))
 
-            else:
-                print("Sorry that time slot is not in the weekkly calendar!")
+        #     if (day in DAY_OF_WEEK and start_hour in START_TIME_HOUR): 
+        #         i = 0
+        #         for appt in appointments_list:
+        #             time = appt.get_start_time_hour()
+        #             appt_day = appt.get_day_of_week()
+        #             if time == start_hour and appt_day == day:
+        #                 type = appt.get_appointment_type()
+        #                 if type == 0:
+        #                     client_name = input("Client Name: ").strip().capitalize()
+        #                     client_phone = input("Client Phone: ").strip()
+        #                     print("Appointment types")
+        #                     print("1: Mens Cut $40, 2: Ladies Cut $60, 3: Mens Colouring $40, 4: Ladies Colouring $80")
+        #                     appt_type = int(input("Type of Appointment: "))
+        #                     appointments_list[i] = Appointment(day, time, client_name, client_phone, appt_type)
+        #                     print(f"Ok, {client_name}'s appointment is scheduled!")
+        #                 else:
+        #                     print("Sorry that time slot is booked already!")
+        #             i += 1
+
+        #     else:
+        #         print("Sorry that time slot is not in the weekkly calendar!")
         elif selection == 2:
             print("*"*2,"Find appointment by name","*"*2)
-            name = input("Enter Client Name: ").title()
+            name = input("Enter Client Name: ").strip().capitalize()
             print_info_table()
             show_appointments_by_name(appointments_list,name)
         elif selection == 3:
             pass
         elif selection == 4:
-            pass
+            print("*"*2,"Cancel an appointment","*"*2)
+            day_of_week = input("What day: ").strip().capitalize()
+            start_time = int(input("Enter start hour (24 hour clock): ").strip())
+            result = find_appointments_by_time(appointments_list,day_of_week,start_time)
+            if result:
+                print(f"Appointment: {result.get_day_of_week()} {result.get_start_time_hour()}:00 - {result.get_end_time_hour()}:00 for {result.get_client_name()} has been cancelled!")
+                result.cancel()
+            else:
+              print("That time slot isn't booked and doesn't need to be cancelled")      
+
         elif selection == 5:
             pass
         elif selection == 6:
@@ -196,3 +272,4 @@ def main():
                 save_scheduled_appointments()
             print("Good Bye!")
 main()
+print(appointments_list)

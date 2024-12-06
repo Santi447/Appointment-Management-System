@@ -1,10 +1,10 @@
 class Appointment:
-    def __init__(self, day_of_week, start_time_hour, client_name = "", client_phone = "", appt_type = 0):
+    def __init__(self, day_of_week, start_time_hour:int, client_name = "", client_phone = "", appt_type = 0):
         self.__client_name = client_name
         self.__client_phone = client_phone
         self.__appt_type = appt_type
         self.__day_of_week = day_of_week
-        self.__start_time_hour = start_time_hour
+        self.__start_time_hour = int(start_time_hour)
     
     def get_client_name(self):
         return self.__client_name
@@ -33,8 +33,7 @@ class Appointment:
              return "invalid Input"
 
     def get_end_time_hour(self):
-        end_time = self.__start_time_hour + 1
-        return end_time
+        return self.__start_time_hour + 1 
 
     def set_client_name(self, name):
         self.__client_name = name
