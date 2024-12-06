@@ -98,9 +98,7 @@ def main():
     print_info_table()
     print(appt)
     print(appt2)
-
-
-if choice == 2:
+    
 
     name = input("Enter Client Name: ").capitalize()
     print_info_table()
