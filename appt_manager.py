@@ -105,6 +105,7 @@ def calculate_weekly_fees():
     pass
 
 def save_scheduled_appointments():
+    
     pass
 
 def schedule_appointment():
@@ -121,7 +122,13 @@ def cancel_appointment():
          print(f"Appintment: {result.get_day_of_week()} {result.get_start_time_hour()}:00 - {result.get_end_time_hour()}:00 for {result.get_client_name()} has been cancelled!")
         result.cancel()
     else:
-        print("That time slot isnt booked and doesnt need to be cancelled")    
+        print("That time slot isnt booked and doesnt need to be cancelled")
+
+def find_appointments_by_name():
+        print("*"*2,"Find appointment by name","*"*2)
+        name = input("Enter Client Name: ").title()
+        print_info_table()
+        show_appointments_by_name(appointments_list,name)
 
     
 
@@ -164,15 +171,13 @@ def main():
             else:
                 print("Sorry that time slot is not in the weekkly calendar!")
         elif selection == 2:
-            print("*"*2,"Find appointment by name","*"*2)
-            name = input("Enter Client Name: ").title()
-            print_info_table()
-            show_appointments_by_name(appointments_list,name)
+            find_appointments_by_name()
+        
         elif selection == 3:
             pass
         elif selection == 4:
             cancel_appointment()
-            pass
+            
         elif selection == 5:
             pass
         elif selection == 6:
