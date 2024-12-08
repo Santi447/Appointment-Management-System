@@ -142,30 +142,24 @@ def main():
             day = input("What day: ").strip().title()
             start_hour = int(input("Enter start hour (24 hour clock): "))
 
-            if day in DAY_OF_WEEK and start_hour in START_TIME_HOUR: 
-                appointment_scheduled = False
+            if (day in DAY_OF_WEEK and start_hour in START_TIME_HOUR): 
+                i = 0
                 for appt in appointments_list:
                     time = appt.get_start_time_hour()
                     appt_day = appt.get_day_of_week()
                     if time == start_hour and appt_day == day:
-                        if appt.get_appointment_type() != 0:
-                            print("Sorry that time slot is booked already!")
-                            appointment_scheduled = True
-                            break
-                        else:
-                            client_name = input("Client Name: ").strip().title()
+                        type = appt.get_appointment_type()
+                        if type == 0:
+                            client_name = input("Client Name: ").strip()
                             client_phone = input("Client Phone: ").strip()
                             print("Appointment types")
                             print("1: Mens Cut $40, 2: Ladies Cut $60, 3: Mens Colouring $40, 4: Ladies Colouring $80")
                             appt_type = int(input("Type of Appointment: "))
-                            appt.schedule(client_name,client_phone,appt_type)                            
-                            appointments_list.append(appt)
+                            appointments_list[i] = Appointment(day, time, client_name, client_phone, appt_type)
                             print(f"Ok, {client_name}'s appointment is scheduled!")
-                            appointment_scheduled = True
-                            break
-                    if not appointment_scheduled:
+                        else:
                             print("Sorry that time slot is booked already!")
-                    
+                    i += 1
 
             else:
                 print("Sorry that time slot is not in the weekkly calendar!")
