@@ -77,13 +77,11 @@ def print_menu():
 def find_appointments_by_time(object_list,day_of_week,start_time):
            for object in object_list:
                 if object.get_day_of_week() == day_of_week and object.get_start_time_hour() == start_time:
+                #returns object if found in objects list   
+                       return object
                     
-                               
-                    return object
-                   
-           if object != object_list:
-            
-            return None    
+           return None                                          
+               
 
 def show_appointments_by_name(object_list,name):
           found = False
@@ -111,6 +109,21 @@ def save_scheduled_appointments():
 
 def schedule_appointment():
     pass
+def cancel_appointment():
+    print("*"*2,"Cancel an appointment","*"*2)
+    day_of_week = input("What day: ").strip()
+    start_time = int(input("Enter start hour (24 hour clock): ").strip())
+    result = find_appointments_by_time(appointments_list,day_of_week,start_time)
+    if result:
+        if result.get_appointment_type() == 0:
+            print("That time slot isnt booked and doesnt need to be cancelled")
+        else:    
+         print(f"Appintment: {result.get_day_of_week()} {result.get_start_time_hour()}:00 - {result.get_end_time_hour()}:00 for {result.get_client_name()} has been cancelled!")
+        result.cancel()
+    else:
+        print("That time slot isnt booked and doesnt need to be cancelled")    
+
+    
 
 def main():
     print("Starting the Appointment Manager System")
@@ -164,6 +177,7 @@ def main():
         elif selection == 3:
             pass
         elif selection == 4:
+            cancel_appointment()
             pass
         elif selection == 5:
             pass
