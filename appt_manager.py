@@ -45,6 +45,7 @@ def load_scheduled_appointments():
         result.schedule(client_name,client_phone,appt_type)
           
     print(f"{appointments_loaded} previously scheduled appointments have been loaded")
+    file_object.close()
 
                                                                       
                             
@@ -104,9 +105,26 @@ def calculate_fees_per_day():
 def calculate_weekly_fees():
     pass
 
-def save_scheduled_appointments():
-    
-    pass
+def save_scheduled_appointments(appointments_list):
+    created_file = input("Enter apointment filename: ").strip()
+    if not os.path.exists(created_file):
+        for appointments in appointments_list:
+            if appointments.get_appointment_type() != 0:
+                  lines = [appointments.format_record()]
+                  file_object = open(created_file, "w")
+                  file_object.writelines(lines)
+                  file_object.close()
+                  file_appointments_count = open(created_file, "r")
+                  content = file_appointments_count.readlines()
+                  appointments_saved = len(content)
+                  print(f"{appointments_saved} schedduled appointments have been successfully saved")
+                  file_appointments_count.close()
+                  break
+
+
+        
+
+                
 
 def schedule_appointment():
     pass
@@ -188,6 +206,6 @@ def main():
             print("\n** Exit the system **")
             save = input("Would you like to save all scheduled appointments to a file (Y/N)? ").strip().lower()
             if save == "y":
-                save_scheduled_appointments()
+                save_scheduled_appointments(appointments_list)
             print("Good Bye!")
 main()
