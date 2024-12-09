@@ -66,6 +66,51 @@ def save_scheduled_appointments():
 def schedule_appointment():
     pass
 
+def schedule_appointment():
+    print("\n** Schedule an appointment **")
+    # asks the user for the day and start hour
+    day = input("What day: ").strip().title()
+    start_hour = int(input("Enter start hour (24 hour clock): "))
+
+    # if day and start hour is both in the day of week and start hour lists respectively, looks through the appointments list
+    if (day in DAY_OF_WEEK and start_hour in START_TIME_HOUR): 
+        i = 0
+        # goes through all the elements in the appointments list
+        for appt in appointments_list:
+            # gets the appt's start time hour
+            time = appt.get_start_time_hour()
+            # gets the appt's day of the week
+            appt_day = appt.get_day_of_week()
+
+            # if the time and appt_day is the same as the inputted day and start hour by user,
+            # looks at what the appointment type is for that element
+            if time == start_hour and appt_day == day:
+                # gets the appointment type for appt
+                type = appt.get_appointment_type()
+                # if the type is 0(available), asks the user more information for their appointment
+                if type == 0:
+                    # asks for user's name and phone number
+                    client_name = input("Client Name: ").strip()
+                    client_phone = input("Client Phone: ").strip()
+                    print("Appointment types")
+                    print("1: Mens Cut $40, 2: Ladies Cut $60, 3: Mens Colouring $40, 4: Ladies Colouring $80")
+                    # asks for the appointment type the user wants to schedule
+                    appt_type = int(input("Type of Appointment: "))
+                    # creates the appointment object using the values given by the user
+                    # overwrites the available slot in the appointments list
+                    appointments_list[i] = Appointment(day, time, client_name, client_phone, appt_type)
+                    print(f"Ok, {client_name}'s appointment is scheduled!")
+                else:
+                    print("Sorry that time slot is booked already!")
+            # increments the i/index value by 1 each elements passed
+            i += 1
+    else:
+        print("Sorry that time slot is not in the weekkly calendar!")
+
+def print_info_table():
+    print("Client Name         Phone          Day       Start     End       Type")
+    print(f"{"-" * 85}")
+
 def main():
     print("Starting the Appointment Manager System")
     create_weekly_calendar(appointments_list)
