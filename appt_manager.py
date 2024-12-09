@@ -122,45 +122,30 @@ def main():
     selection = 0
     while selection != 9:
         print()
+        # calls on the print_menu()
         selection = print_menu()
         if selection == 1:
-            print("\n** Schedule an appointment **")
-            day = input("What day: ").strip().title()
-            start_hour = int(input("Enter start hour (24 hour clock): "))
-
-            if (day in DAY_OF_WEEK and start_hour in START_TIME_HOUR): 
-                i = 0
-                for appt in appointments_list:
-                    time = appt.get_start_time_hour()
-                    appt_day = appt.get_day_of_week()
-                    if time == start_hour and appt_day == day:
-                        type = appt.get_appointment_type()
-                        if type == 0:
-                            client_name = input("Client Name: ").strip()
-                            client_phone = input("Client Phone: ").strip()
-                            print("Appointment types")
-                            print("1: Mens Cut $40, 2: Ladies Cut $60, 3: Mens Colouring $40, 4: Ladies Colouring $80")
-                            appt_type = int(input("Type of Appointment: "))
-                            appointments_list[i] = Appointment(day, time, client_name, client_phone, appt_type)
-                            print(f"Ok, {client_name}'s appointment is scheduled!")
-                        else:
-                            print("Sorry that time slot is booked already!")
-                    i += 1
-
-            else:
-                print("Sorry that time slot is not in the weekkly calendar!")
+            # calls on the schedule_appointment method
+            schedule_appointment()
         elif selection == 2:
-            pass
+            print("\n** Find appointment by name **")
+            client_name = input("Enter Client Name: ").strip()
+            # calls on the show_appointments_by_name method
+            show_appointments_by_name(appointments_list, client_name)
         elif selection == 3:
-            pass
+            print("\n** Print calendar for a specific day **")
         elif selection == 4:
             pass
+            # calls on the cancel_appointment method
+            # cancel_appointment()
         elif selection == 5:
-            pass
+            print("\nChange an appointment for:")
+            change_appointment_by_day_time()
         elif selection == 6:
-            pass
+            print("\nFees calculation per day....")
+            calculate_fees_per_day()
         elif selection == 7:
-            pass
+            calculate_weekly_fees()
         elif selection == 9:
             print("\n** Exit the system **")
             save = input("Would you like to save all scheduled appointments to a file (Y/N)? ").strip().lower()
