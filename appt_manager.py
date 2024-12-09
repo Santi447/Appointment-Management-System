@@ -57,8 +57,17 @@ def change_appointment_by_day_time():
 def calculate_fees_per_day():
     pass
 
-def calculate_weekly_fees():
-    pass
+def calculate_weekly_fees(appointment_list):
+    total = 0
+    for appt in appointment_list:
+        type = appt.get_appointment_type()
+        if type == 1 or type == 3:
+            total += 40
+        elif type == 2:
+            total += 60
+        elif type == 4:
+            total += 80
+    print(f"Total weekly fees is ${total}")
 
 def save_scheduled_appointments():
     pass
