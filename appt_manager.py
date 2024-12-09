@@ -96,8 +96,45 @@ def show_appointments_by_name(object_list,name):
 def show_appointments_by_day():
     pass
 
-def change_appointment_by_day_time():
-    pass
+def change_appointment_by_day_time(appointments_list):
+    # Input current appointment details
+    day = input("Enter the current appointment day: ").strip().title()
+    start_hour = int(input("Enter the current starting hour (24-hour clock): ").strip())
+
+    # Validate and find the current appointment
+    result = find_appointments_by_time(appointments_list, day, start_hour)
+    if not result or result.get_appointment_type() == 0:
+        print("That time slot isnt booked and doesnt need to be changed")
+        return
+
+    # Display the current appointment details
+    name = result.get_client_name()
+    phone_number = result.get_client_phone()
+    appt_type = result.get_appointment_type()
+
+
+    # Cancel the current appointment
+    result.cancel()
+    
+
+    # Prompt for new appointment details
+    new_day = input("Enter the new appointment day: ").strip().title()
+    new_start_hour = int(input("Enter the new starting hour (24-hour clock): ").strip())
+
+    # Validate new input
+    if new_day not in DAY_OF_WEEK or new_start_hour not in START_TIME_HOUR:
+        print("That time slot isnt booked and doesnt need to be changed")
+        return
+
+    # Check if the new time slot is available
+    new_result = find_appointments_by_time(appointments_list, new_day, new_start_hour)
+    if new_result and new_result.get_appointment_type() == 0:
+        # Schedule the new appointment
+        new_result.schedule(name, phone_number, appt_type)
+        print(f"Appointment for {name} has been rescheduled to:\nDay: {new_day}\nTime: {new_start_hour}:00.")
+    else:
+        print("The new time slot is already booked")
+
 
 def calculate_fees_per_day():
     pass
@@ -107,25 +144,24 @@ def calculate_weekly_fees():
 
 def save_scheduled_appointments(appointments_list):
     created_file = input("Enter apointment filename: ").strip()
-    if not os.path.exists(created_file):
-        for appointment in appointments_list:
-            if appointment.get_appointment_type() != 0:
-                  line = [appointment.format_record()]
-                  
+    while os.path.exists(created_file):
+       overwrite = input("File already exists, would you like to overwrite Y/N: ")
+       if overwrite == "Y":
+         with open(created_file, "w") as file_object:
+           for appointment in appointments_list:
+             if appointment.get_appointment_type() != 0:
+                line = appointment.format_record()          
+                file_object.write(line + "\n")
+                
+                with open(created_file, "r") as file_appointments_count:
+                 content = file_appointments_count.readlines()
+                 appointments_saved = len(content)
+                 print(f"{appointments_saved} schedduled appointments have been successfully saved")
 
-                            
-                  for appointments in  line:
-                  
-                     lines = [f"{line}\n"]
-                     file_object = open(created_file, "w")
-                     file_object.writelines(lines)
-                     file_object.close()
-                     file_appointments_count = open(created_file, "r")
-                     content = file_appointments_count.readlines()
-                     appointments_saved = len(content)
-                     print(f"{appointments_saved} schedduled appointments have been successfully saved")
-                     file_appointments_count.close()
-                     break
+           
+                 
+       
+       
 
 
         
@@ -203,7 +239,8 @@ def main():
             cancel_appointment()
             
         elif selection == 5:
-            pass
+            change_appointment_by_day_time(appointments_list)
+            
         elif selection == 6:
             pass
         elif selection == 7:
