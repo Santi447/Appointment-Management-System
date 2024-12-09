@@ -108,18 +108,24 @@ def calculate_weekly_fees():
 def save_scheduled_appointments(appointments_list):
     created_file = input("Enter apointment filename: ").strip()
     if not os.path.exists(created_file):
-        for appointments in appointments_list:
-            if appointments.get_appointment_type() != 0:
-                  lines = [appointments.format_record()]
-                  file_object = open(created_file, "w")
-                  file_object.writelines(lines)
-                  file_object.close()
-                  file_appointments_count = open(created_file, "r")
-                  content = file_appointments_count.readlines()
-                  appointments_saved = len(content)
-                  print(f"{appointments_saved} schedduled appointments have been successfully saved")
-                  file_appointments_count.close()
-                  break
+        for appointment in appointments_list:
+            if appointment.get_appointment_type() != 0:
+                  line = [appointment.format_record()]
+                  
+
+                            
+                  for appointments in  line:
+                  
+                     lines = [f"{line}\n"]
+                     file_object = open(created_file, "w")
+                     file_object.writelines(lines)
+                     file_object.close()
+                     file_appointments_count = open(created_file, "r")
+                     content = file_appointments_count.readlines()
+                     appointments_saved = len(content)
+                     print(f"{appointments_saved} schedduled appointments have been successfully saved")
+                     file_appointments_count.close()
+                     break
 
 
         
