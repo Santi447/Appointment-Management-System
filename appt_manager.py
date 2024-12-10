@@ -143,30 +143,31 @@ def calculate_weekly_fees():
     pass
 
 def save_scheduled_appointments(appointments_list):
+  running = True
+  while running:
     created_file = input("Enter apointment filename: ").strip()
-    while os.path.exists(created_file):
-       overwrite = input("File already exists, would you like to overwrite Y/N: ")
-       if overwrite == "Y":
-         with open(created_file, "w") as file_object:
+    if os.path.exists(created_file):
+         overwrite = input("File already exist. would you like to overwrite it y/n: ")
+         if overwrite == "N":
+                continue
+         elif overwrite !="Y":
+                continue        
+          
+         
+    with open(created_file, "w") as file_object:
            for appointment in appointments_list:
              if appointment.get_appointment_type() != 0:
                 line = appointment.format_record()          
                 file_object.write(line + "\n")
                 
-                with open(created_file, "r") as file_appointments_count:
+    with open(created_file, "r") as file_appointments_count:
                  content = file_appointments_count.readlines()
                  appointments_saved = len(content)
-                 print(f"{appointments_saved} schedduled appointments have been successfully saved")
+    print(f"{appointments_saved} schedduled appointments have been successfully saved")
+    running = False
 
            
-                 
-       
-       
-
-
-        
-
-                
+                      
 
 def schedule_appointment():
     pass
