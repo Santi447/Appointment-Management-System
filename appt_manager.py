@@ -93,6 +93,7 @@ def show_appointments_by_day(appointments_list,day):
 
 def change_appointment_by_day_time(appointments_list):
     # Input current appointment details
+    print("Change appointment for:")
     day = input("What day: ").strip().title()
     start_hour = int(input("Enter start hour (24-hour clock): ").strip())
 
@@ -113,8 +114,8 @@ def change_appointment_by_day_time(appointments_list):
     
 
     # Prompt for new appointment details
-    new_day = input("Enter the new day: ").strip().title()
-    new_start_hour = int(input("Enter the new starting hour (24-hour clock): ").strip())
+    new_day = input("Enter a new day: ").strip().title()
+    new_start_hour = int(input("Enter starting hour (24-hour clock): ").strip())
 
     # Validate new input
     if new_day not in DAY_OF_WEEK or new_start_hour not in START_TIME_HOUR:
@@ -126,7 +127,7 @@ def change_appointment_by_day_time(appointments_list):
     if new_result and new_result.get_appointment_type() == 0:
         # Schedule the new appointment
         new_result.schedule(name, phone_number, appt_type)
-        print(f"Appointment for {name} has been rescheduled to:\nDay: {new_day}\nTime: {new_start_hour}:00.")
+        print(f"Appointment for {name} has been changed to:\nDay: {new_day}\nTime = {new_start_hour}")
     else:
         print("The new time slot is already booked")
 
@@ -241,7 +242,8 @@ def exit_program():
         print("Good Bye!")            
 def print_calendar_for_a_specific_day():
             print("*"*2,"Print calendar for a specific day","*"*2)
-            day = str(input("Enter a day: ")).strip().title()
+            day = str(input("Enter day of week: ")).strip().title()
+            print(f"Appointments for {day}\n")
             print_info_table()
             show_appointments_by_day(appointments_list,day)    
     
@@ -253,34 +255,41 @@ def main():
     appointments_list = []
     print("Starting the Appointment Manager System")
     create_weekly_calendar(appointments_list)
+    print("Weekly calendar created")
     prev_sched_appt = input("Would you like to load previously scheduled appointments from a file (Y/N)? ").strip().lower()
     if prev_sched_appt == "y":
         load_scheduled_appointments()
+        print("\n")
         
     
     selection = 0
     while selection != 9:
-        print()
+
         selection = print_menu()
-        if selection == 1:
+        match selection:
+
+          case 1:
             schedule_appointment()
 
-        elif selection == 2:
+          case 2:
             find_appointments_by_name()
         
-        elif selection == 3:
+          case 3:
             print_calendar_for_a_specific_day()
 
-        elif selection == 4:
+          case 4:
             cancel_appointment()
             
-        elif selection == 5:
+          case 5:
             change_appointment_by_day_time(appointments_list)
             
-        elif selection == 6:
+          case 6:
             pass
-        elif selection == 7:
+            
+          case 7:
             calculate_weekly_fees(appointments_list)
-        elif selection == 9:
+          case 9:
              exit_program()
+          case _:
+           print("\nInvalid option\n")        
 main()
