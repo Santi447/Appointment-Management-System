@@ -1,17 +1,20 @@
+# date 2024/12/10 created by Gianna,Cauy,Santiago
+# This program was created for a hair salon company to managed their appointments and calculate total fees for days and weeks as well it also allows you to load previous weeks or save current weeks with the option to overwrite the file if it already exist
+# import appointments class and os
 from appoint import Appointment
 import os
-
+# function for info table
 def print_info_table():
     print("Client Name         Phone          Day       Start     End       Type")
     print(f"{"-" * 85}")            
-         
+#function to create weekly calander  
 def create_weekly_calendar(appointment_list):
     appointment_list.clear()
     for day in DAY_OF_WEEK:
         for hour in START_TIME_HOUR:
             appt = Appointment(day,hour)
             appointments_list.append(appt)
-
+# function to load previous schedules
 def load_scheduled_appointments():
     # user input file name
     file_name = input("Enter appointment filename: ").strip()
@@ -41,7 +44,7 @@ def load_scheduled_appointments():
                                                                       
                             
 
-
+# menu function
 def print_menu():
     selection_invalid = True
     while selection_invalid:
@@ -65,7 +68,7 @@ def print_menu():
         else:
             print("\nInvalid option")
     return selection
-
+# find appointments by time function
 def find_appointments_by_time(object_list,day_of_week,start_time):
            for object in object_list:
                 if object.get_day_of_week() == day_of_week and object.get_start_time_hour() == start_time:
@@ -74,7 +77,7 @@ def find_appointments_by_time(object_list,day_of_week,start_time):
                     
            return None                                          
                
-
+# show appointments by time function
 def show_appointments_by_name(object_list,name):
           found = False
           for objects in object_list:
@@ -83,13 +86,13 @@ def show_appointments_by_name(object_list,name):
                 found = True
           if not found:
             print("no appointments found.")
-
+# show appointments by day function
 def show_appointments_by_day(appointments_list,day):
     for appointments in appointments_list:
      if appointments.get_day_of_week() == day:
          print(appointments.__str__())    
     
-
+# change appointments by day and time
 def change_appointment_by_day_time(appointments_list):
     # Input current appointment details
     
@@ -132,9 +135,9 @@ def change_appointment_by_day_time(appointments_list):
         print("The new time slot is already booked")
 
 
-
+# calculate fee for the day function
 def calculate_fees_per_day(appointments_list):
-    print("Fees calculation per day....")
+    print("\nFees calculation per day....")
     day = str(input("What day: ")).strip().title()
     
     total_fees = 0 
@@ -165,7 +168,7 @@ def calculate_fees_per_day(appointments_list):
     
             
               
-
+# calculate fee for week function
 
 def calculate_weekly_fees(appointment_list):
     total = 0
@@ -182,13 +185,13 @@ def calculate_weekly_fees(appointment_list):
             total += 80 
     print(f"Total weekly fees is ${total}")    
     
-
+# save schedule for appointments for that week function
 def save_scheduled_appointments(appointments_list):
   running = True
   while running:
-    created_file = input("Enter apointment filename: ").strip()
+    created_file = input("Enter appointment filename: ").strip()
     if os.path.exists(created_file):
-         overwrite = input("File already exist. would you like to overwrite it y/n: ")
+         overwrite = input("File already exist. would you like to overwrite it (Y/N)? ")
          if overwrite == "N":
                 continue
          elif overwrite !="Y":
@@ -209,7 +212,7 @@ def save_scheduled_appointments(appointments_list):
 
            
                       
-
+# schedule appointments function
 def schedule_appointment():
     print("\n** Schedule an appointment **")
     # asks the user for the day and start hour
@@ -249,7 +252,7 @@ def schedule_appointment():
     else:
         print("Sorry that time slot is not in the weekkly calendar!")    
     
-
+# cancel appointments function
 def cancel_appointment():
     print("\n**","Cancel an appointment","**")
     day_of_week = input("What day: ").strip().title()
@@ -257,25 +260,27 @@ def cancel_appointment():
     result = find_appointments_by_time(appointments_list,day_of_week,start_time)
     if result:
         if result.get_appointment_type() == 0:
-            print("That time slot isnt booked and doesnt need to be cancelled")
+            print("That time slot isn't booked and doesn't need to be cancelled")
         else:    
          print(f"Appointment: {result.get_day_of_week()} {result.get_start_time_hour()}:00 - {result.get_end_time_hour()}:00 for {result.get_client_name()} has been cancelled!")
         result.cancel()
     else:
-        print("That time slot isnt booked and doesnt need to be cancelled")
-
+        print("That time slot isn't booked and doesn't need to be cancelled")
+# find appointments by name for main function
 def find_appointments_by_name():
         print("\n**","Find appointment by name","**")
         name = input("Enter Client Name: ").title()
         print()
         print_info_table()
         show_appointments_by_name(appointments_list,name)
+ # exit program for main function 
 def exit_program():
         print("\n** Exit the system **")
         save = input("Would you like to save all scheduled appointments to a file (Y/N)? ").strip().lower()
         if save == "y":
             save_scheduled_appointments(appointments_list)
-        print("Good Bye!")            
+        print("Good Bye!")
+# print appointments for the day 
 def print_calendar_for_a_specific_day():
             print("\n**","Print calendar for a specific day","**")
             day = str(input("Enter day of week: ")).strip().title()
@@ -283,7 +288,7 @@ def print_calendar_for_a_specific_day():
             print_info_table()
             show_appointments_by_day(appointments_list,day)    
     
-
+# main function to run the program
 def main():
     global DAY_OF_WEEK, START_TIME_HOUR,appointments_list
     DAY_OF_WEEK = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
