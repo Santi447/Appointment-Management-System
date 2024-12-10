@@ -84,15 +84,10 @@ def calculate_fees_per_day(appointments_list):
 
     if day in DAY_OF_WEEK:
 
-        for appointments in appointments_list:
-            if appointments.get_day_of_week() == day:
-            
-                appointments.get_appt_type()
+        for appt in appointments_list:
+            if appt.get_day_of_week() == day:
 
-                match appointments.get_appt_type():
-
-                    case 0:
-                        total_fees += 0
+                match appt.get_appointment_type():
 
                     case 1:
                         total_fees += 40
@@ -105,9 +100,10 @@ def calculate_fees_per_day(appointments_list):
 
                     case 4:
                         total_fees += 80
-
-            print(f"Total fees for {day}: {total_fees}")
-
+    
+        print(f"Total fees for {day} is ${total_fees}")
+    else:
+        print(f"{day} is invalid or the salon is closed")
             
 
 
@@ -175,7 +171,7 @@ def main():
         elif selection == 6:
             print("Fees calculation per day...")
             
-            calculate_fees_per_day()
+            calculate_fees_per_day(appointments_list)
 
         elif selection == 7:
             pass
