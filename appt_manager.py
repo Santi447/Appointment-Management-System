@@ -85,8 +85,11 @@ def show_appointments_by_name(object_list,name):
           if not found:
             print("no appointments found.")
 
-def show_appointments_by_day():
-    pass
+def show_appointments_by_day(appointments_list,day):
+    for appointments in appointments_list:
+     if appointments.get_day_of_week() == day:
+         print(appointments.__str__())    
+    
 
 def change_appointment_by_day_time(appointments_list):
     # Input current appointment details
@@ -193,7 +196,7 @@ def schedule_appointment():
                 # if the type is 0(available), asks the user more information for their appointment
                 if type == 0:
                     # asks for user's name and phone number
-                    client_name = input("Client Name: ").strip()
+                    client_name = input("Client Name: ").strip().title()
                     client_phone = input("Client Phone: ").strip()
                     print("Appointment types")
                     print("1: Mens Cut $40, 2: Ladies Cut $60, 3: Mens Colouring $40, 4: Ladies Colouring $80")
@@ -213,7 +216,7 @@ def schedule_appointment():
 
 def cancel_appointment():
     print("*"*2,"Cancel an appointment","*"*2)
-    day_of_week = input("What day: ").strip()
+    day_of_week = input("What day: ").strip().title()
     start_time = int(input("Enter start hour (24 hour clock): ").strip())
     result = find_appointments_by_time(appointments_list,day_of_week,start_time)
     if result:
@@ -236,7 +239,11 @@ def exit_program():
         if save == "y":
             save_scheduled_appointments(appointments_list)
         print("Good Bye!")            
-
+def print_calendar_for_a_specific_day():
+            print("*"*2,"Print calendar for a specific day","*"*2)
+            day = str(input("Enter a day: ")).strip().title()
+            print_info_table()
+            show_appointments_by_day(appointments_list,day)    
     
 
 def main():
@@ -262,7 +269,8 @@ def main():
             find_appointments_by_name()
         
         elif selection == 3:
-            pass
+            print_calendar_for_a_specific_day()
+
         elif selection == 4:
             cancel_appointment()
             
@@ -272,7 +280,7 @@ def main():
         elif selection == 6:
             pass
         elif selection == 7:
-            calculate_weekly_fees()
+            calculate_weekly_fees(appointments_list)
         elif selection == 9:
              exit_program()
 main()
