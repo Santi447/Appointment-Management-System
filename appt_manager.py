@@ -48,22 +48,15 @@ def find_appointment_by_time():
 def show_appointments_by_name():
     pass
 
-def show_appointments_by_day(object_list,day):
-          
-    #found = False
-    #if day in object_list:
-        #if objects.get_day_of_week() == day:
-            #print(objects.__str__())
-            #found = True
-            #if not found:
-            #    print("Available")
-    for appointments in object_list:
+def show_appointments_by_day(appointments_list,day):
+     
+    for appointments in appointments_list:
         if appointments.get_day_of_week() == day:
-            return appointments.__str__()
+            print(appointments.__str__())
 
 def change_appointment_by_day_time(appointments_list):
-    day = input("Enter a day: ").strip().title()
-    start_hour = input("Enter a satrting hour (24 hour clock): ")
+    day = str(input("Enter a day: ")).strip().title()
+    start_hour = int(input("Enter a satrting hour (24 hour clock): "))
     if day in DAY_OF_WEEK and start_hour in START_TIME_HOUR:
         for appointments in appointments_list:
             result = appointments.find_appointments_by_time(appointments_list, day, start_hour)
@@ -81,6 +74,8 @@ def change_appointment_by_day_time(appointments_list):
                             new_result.schedule(name, phone_number, appt_type)
                             result.cancel()
                             print(f"Appointment for {name} has been changed to :\nDay = {new_day}\nTime = {new_start_hour}")
+            else:
+                print("That time slot isn't booked and doesn't need to be changed")
     pass
 
 def calculate_fees_per_day():
@@ -136,25 +131,15 @@ def main():
         elif selection == 2:
             pass
         elif selection == 3:
+            day = str(input("Enter a day: ")).strip().title()
+            show_appointments_by_day(appointments_list, day)
             
-            day = in
 
 
         elif selection == 4:
             pass
         elif selection == 5:
-                day = str(input(f"Change an appointment for: ")).strip().title()
-                start_hour = int(input("Enter start hour (24 hour clock): "))
-                
-                if (day in DAY_OF_WEEK and start_hour in START_TIME_HOUR):
-                    for appt in appointments_list:
-                        time = appt.get_start_time_hour()
-                        appt_day = appt.get_day_of_week()
-                        if time == start_hour and appt_day == day:
-                            type = appt.get_appointment_type()
-                            if type != 0:
-                                day = str(input("Enter new day: ")).strip().title()
-                                time = int(input("Enter start hour (24 hour clock): "))
+            change_appointment_by_day_time()
 
 
         elif selection == 6:
