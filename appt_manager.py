@@ -5,7 +5,6 @@ def print_info_table():
     print("Client Name         Phone          Day       Start     End       Type")
     print(f"{"-" * 85}")            
          
-
 def create_weekly_calendar(appointment_list):
     appointment_list.clear()
     for day in DAY_OF_WEEK:
@@ -47,7 +46,7 @@ def print_menu():
     selection_invalid = True
     while selection_invalid:
         print(
-            f"{"=" * 38}\n"
+            f"\n{"=" * 38}\n"
             f"{"Hair Salon Appointment Manager":^38}\n"
             f"{"=" * 38}\n"
             " 1) Schedule an appointment\n"
@@ -64,7 +63,7 @@ def print_menu():
         if selection < 10 :
             selection_invalid = False
         else:
-            print("\nInvalid option\n")
+            print("\nInvalid option")
     return selection
 
 def find_appointments_by_time(object_list,day_of_week,start_time):
@@ -93,7 +92,8 @@ def show_appointments_by_day(appointments_list,day):
 
 def change_appointment_by_day_time(appointments_list):
     # Input current appointment details
-    print("Change appointment for:")
+    
+    print("\nChange appointment for:")
     day = input("What day: ").strip().title()
     start_hour = int(input("Enter start hour (24-hour clock): ").strip())
 
@@ -109,8 +109,7 @@ def change_appointment_by_day_time(appointments_list):
     appt_type = result.get_appointment_type()
 
 
-    # Cancel the current appointment
-    result.cancel()
+    
     
 
     # Prompt for new appointment details
@@ -119,7 +118,7 @@ def change_appointment_by_day_time(appointments_list):
 
     # Validate new input
     if new_day not in DAY_OF_WEEK or new_start_hour not in START_TIME_HOUR:
-        print("That time slot isnt booked and doesnt need to be changed")
+        print("That time slot isn't booked and doesn't need to be changed")
         return
 
     # Check if the new time slot is available
@@ -127,24 +126,60 @@ def change_appointment_by_day_time(appointments_list):
     if new_result and new_result.get_appointment_type() == 0:
         # Schedule the new appointment
         new_result.schedule(name, phone_number, appt_type)
-        print(f"Appointment for {name} has been changed to:\nDay: {new_day}\nTime = {new_start_hour}")
+        print(f"Appointment for {name} has been changed to:\nDay = {new_day}\nTime = {new_start_hour}")
+        result.cancel()
     else:
         print("The new time slot is already booked")
 
 
-def calculate_fees_per_day():
-    pass
+
+def calculate_fees_per_day(appointments_list):
+    print("Fees calculation per day....")
+    day = str(input("What day: ")).strip().title()
+    
+    total_fees = 0 
+    if day in DAY_OF_WEEK:
+
+        for appointments in appointments_list:
+            
+            if appointments.get_day_of_week() == day:
+              match appointments.get_appointment_type():
+
+
+                    case 1:
+                        total_fees += 40
+
+                    case 2:
+                        total_fees += 60
+
+                    case 3:
+                        total_fees += 40
+
+                    case 4:
+                        total_fees += 80
+        print(f"Total fees for {day} is ${(total_fees)}")
+    else:
+        print(f"{day} is invalid day or the salon is closed")
+        
+                          
+    
+            
+              
+
 
 def calculate_weekly_fees(appointment_list):
     total = 0
     for appt in appointment_list:
         type = appt.get_appointment_type()
-        if type == 1 or type == 3:
-            total += 40
-        elif type == 2:
-            total += 60
-        elif type == 4:
-            total += 80
+        match type:
+          case 1:
+           total += 40
+          case 2:
+           total += 60
+          case 3:
+           total += 40
+          case 4:
+            total += 80 
     print(f"Total weekly fees is ${total}")    
     
 
@@ -169,7 +204,7 @@ def save_scheduled_appointments(appointments_list):
     with open(created_file, "r") as file_appointments_count:
                  content = file_appointments_count.readlines()
                  appointments_saved = len(content)
-    print(f"{appointments_saved} schedduled appointments have been successfully saved")
+    print(f"{appointments_saved} scheduled appointments have been successfully saved")
     running = False
 
            
@@ -205,7 +240,7 @@ def schedule_appointment():
                     appt_type = int(input("Type of Appointment: "))
                     # creates the appointment object using the values given by the user
                     # overwrites the available slot in the appointments list
-                    appointments_list[i] = Appointment(day, time, client_name, client_phone, appt_type)
+                    appointments_list[i].schedule(client_name,client_phone,appt_type)
                     print(f"Ok, {client_name}'s appointment is scheduled!")
                 else:
                     print("Sorry that time slot is booked already!")
@@ -216,7 +251,7 @@ def schedule_appointment():
     
 
 def cancel_appointment():
-    print("*"*2,"Cancel an appointment","*"*2)
+    print("\n**","Cancel an appointment","**")
     day_of_week = input("What day: ").strip().title()
     start_time = int(input("Enter start hour (24 hour clock): ").strip())
     result = find_appointments_by_time(appointments_list,day_of_week,start_time)
@@ -224,14 +259,15 @@ def cancel_appointment():
         if result.get_appointment_type() == 0:
             print("That time slot isnt booked and doesnt need to be cancelled")
         else:    
-         print(f"Appintment: {result.get_day_of_week()} {result.get_start_time_hour()}:00 - {result.get_end_time_hour()}:00 for {result.get_client_name()} has been cancelled!")
+         print(f"Appointment: {result.get_day_of_week()} {result.get_start_time_hour()}:00 - {result.get_end_time_hour()}:00 for {result.get_client_name()} has been cancelled!")
         result.cancel()
     else:
         print("That time slot isnt booked and doesnt need to be cancelled")
 
 def find_appointments_by_name():
-        print("*"*2,"Find appointment by name","*"*2)
+        print("\n**","Find appointment by name","**")
         name = input("Enter Client Name: ").title()
+        print()
         print_info_table()
         show_appointments_by_name(appointments_list,name)
 def exit_program():
@@ -241,7 +277,7 @@ def exit_program():
             save_scheduled_appointments(appointments_list)
         print("Good Bye!")            
 def print_calendar_for_a_specific_day():
-            print("*"*2,"Print calendar for a specific day","*"*2)
+            print("\n**","Print calendar for a specific day","**")
             day = str(input("Enter day of week: ")).strip().title()
             print(f"Appointments for {day}\n")
             print_info_table()
@@ -259,7 +295,7 @@ def main():
     prev_sched_appt = input("Would you like to load previously scheduled appointments from a file (Y/N)? ").strip().lower()
     if prev_sched_appt == "y":
         load_scheduled_appointments()
-        print("\n")
+        
         
     
     selection = 0
@@ -284,12 +320,12 @@ def main():
             change_appointment_by_day_time(appointments_list)
             
           case 6:
-            pass
+            calculate_fees_per_day(appointments_list)
             
           case 7:
             calculate_weekly_fees(appointments_list)
           case 9:
              exit_program()
           case _:
-           print("\nInvalid option\n")        
+           print("\nInvalid option")        
 main()

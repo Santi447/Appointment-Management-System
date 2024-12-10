@@ -62,5 +62,5 @@ class Appointment:
         appt_type = self.get_appt_type_desc()
         return (
             f"{self.__client_name:<20}{self.__client_phone:<15}{self.__day_of_week:<10}"
-            f"{self.__start_time_hour:<2}:00  -  {end_time:<2}:00     {appt_type:<20}"
+            f"{self.__start_time_hour:02}:00  -  {end_time:<2}:00     {appt_type:<20}"
             )
