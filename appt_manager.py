@@ -78,8 +78,38 @@ def change_appointment_by_day_time(appointments_list):
                 print("That time slot isn't booked and doesn't need to be changed")
     pass
 
-def calculate_fees_per_day():
-    pass
+def calculate_fees_per_day(appointments_list):
+    day = str(input("Enter a day: ")).strip().title()
+    total_fees = 0
+
+    if day in DAY_OF_WEEK:
+
+        for appointments in appointments_list:
+            if appointments.get_day_of_week() == day:
+            
+                appointments.get_appt_type()
+
+                match appointments.get_appt_type():
+
+                    case 0:
+                        total_fees += 0
+
+                    case 1:
+                        total_fees += 40
+
+                    case 2:
+                        total_fees += 60
+
+                    case 3:
+                        total_fees += 40
+
+                    case 4:
+                        total_fees += 80
+
+            print(f"Total fees for {day}: {total_fees}")
+
+            
+
 
 def calculate_weekly_fees():
     pass
@@ -143,7 +173,10 @@ def main():
 
 
         elif selection == 6:
-            pass
+            print("Fees calculation per day...")
+            
+            calculate_fees_per_day()
+
         elif selection == 7:
             pass
         elif selection == 9:
