@@ -107,9 +107,8 @@ def schedule_appointment():
                     print("1: Mens Cut $40, 2: Ladies Cut $60, 3: Mens Colouring $40, 4: Ladies Colouring $80")
                     # asks for the appointment type the user wants to schedule
                     appt_type = int(input("Type of Appointment: "))
-                    # creates the appointment object using the values given by the user
                     # overwrites the available slot in the appointments list
-                    appointments_list[i] = Appointment(day, time, client_name, client_phone, appt_type)
+                    appointments_list[i].schedule(client_name, client_phone, appt_type)
                     print(f"Ok, {client_name}'s appointment is scheduled!")
                 else:
                     print("Sorry that time slot is booked already!")
