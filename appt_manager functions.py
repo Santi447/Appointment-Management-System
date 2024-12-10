@@ -70,12 +70,3 @@ class Appointment:
             )
     
  
-    def show_appointments_by_day(object_list,day):
-          
-        found = False
-        for objects in object_list:
-            if objects.get_day_of_week() == day:
-                print(objects.__str__())
-                found = True
-                if not found:
-                    print("Available")
