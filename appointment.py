@@ -55,7 +55,7 @@ class Appointment:
         self.__appt_type = 0
     
     def format_record(self):
-        return f"{self.__client_name},{self.__client_phone},{self.__appt_type},{self.__day_of_week},{self.__start_time_hour}"
+        return f"{self.__client_name},{self.__client_phone},{self.__appt_type},{self.__day_of_week},{self.__start_time_hour:02}"
 
     def __str__(self):
         end_time = self.get_end_time_hour()
