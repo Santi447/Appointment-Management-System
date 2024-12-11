@@ -1,5 +1,14 @@
-# date 2024/12/10 created by Gianna,Cauy,Santiago
-# This program was created for a hair salon company to managed their appointments and calculate total fees for days and weeks as well it also allows you to load previous weeks or save current weeks with the option to overwrite the file if it already exist
+# date 2024/12/10 created by Gianna Rae Natanauan,Cauy Tuson,Santiago Pabon
+# This program was created for a hair salon company to managed their appointments 
+# calculate total fees for days and weeks as well
+#  it also allows you to load previous appointments saved in a file at the beginning of the program and save current appointments in a file with the option to overwrite the file if it already exist when exiting the program
+# they can schedule a appointments allowing for the name, phone number, appointment type, day of the appointments and starting hour of the appointment
+# they can search for that appointment by name.
+# they can display the appointments scheduled for the day
+# they can change the appointments day and time 
+# they can cancel the appointments 
+
+
 # import appointments class and os
 from appoint import Appointment
 import os
@@ -17,6 +26,7 @@ def create_weekly_calendar(appointment_list):
             # append day and hour appintment to appointments list tocreated weekly calendar
             appt = Appointment(day,hour)
             appointments_list.append(appt)
+
 
 # function to load previous schedules
 def load_scheduled_appointments():
@@ -81,6 +91,7 @@ def print_menu():
             print("\nInvalid option")
     return selection
 
+
 # find appointments by time function
 def find_appointments_by_time(object_list,day_of_week,start_time):
            #iterate through appointments in appointments list 
@@ -91,7 +102,8 @@ def find_appointments_by_time(object_list,day_of_week,start_time):
                        return object
             # returns nothing if no appointent is found  
            return None                                          
-               
+
+
 # show appointments by time function
 def show_appointments_by_name(object_list,name):
         #   flag for if name is found 
@@ -108,6 +120,7 @@ def show_appointments_by_name(object_list,name):
           if not found:
             print("no appointments found.")
 
+
 # show appointments by day function
 def show_appointments_by_day(appointments_list,day):
     # iterate through appointments in appointments list
@@ -115,7 +128,8 @@ def show_appointments_by_day(appointments_list,day):
     #  if the appointments found matches the paramater day recived in the function print out the appointments in .__str__() method format
      if appointments.get_day_of_week() == day:
          print(appointments.__str__())    
-    
+
+
 # change appointments by day and time
 def change_appointment_by_day_time(appointments_list):
     
@@ -135,9 +149,6 @@ def change_appointment_by_day_time(appointments_list):
     phone_number = result.get_client_phone()
     appt_type = result.get_appointment_type()
 
-
-    
-    
 
     # Prompt for new appointment details
     new_day = input("Enter a new day: ").strip().title()
@@ -196,11 +207,8 @@ def calculate_fees_per_day(appointments_list):
         print(f"{day} is invalid day or the salon is closed")
         
                           
-    
-            
-              
+                  
 # calculate fee for week function
-
 def calculate_weekly_fees(appointment_list):
     # set total = 0
     total = 0
@@ -221,7 +229,8 @@ def calculate_weekly_fees(appointment_list):
             total += 80 
     #print total 
     print(f"Total weekly fees is ${total}")    
-    
+
+
 # save schedule for appointments for that week function
 def save_scheduled_appointments(appointments_list):
 #   set flag to true
@@ -299,7 +308,8 @@ def schedule_appointment():
             i += 1
     else:
         print("Sorry that time slot is not in the weekkly calendar!")    
-    
+
+
 # cancel appointments function
 def cancel_appointment():
     print("\n**","Cancel an appointment","**")
@@ -321,6 +331,7 @@ def cancel_appointment():
     else:
         print("That time slot isn't booked and doesn't need to be cancelled")
 
+
 # find appointments by name for main function
 def find_appointments_by_name():
         print("\n**","Find appointment by name","**")
@@ -331,6 +342,7 @@ def find_appointments_by_name():
         print_info_table()
         # prints appointments attributes 
         show_appointments_by_name(appointments_list,name)
+
 
  # exit program for main function 
 def exit_program():
@@ -343,6 +355,8 @@ def exit_program():
             save_scheduled_appointments(appointments_list)
        #print goodbye 
         print("Good Bye!")
+
+
 # print appointments for the day 
 def print_calendar_for_a_specific_day():
             
@@ -353,7 +367,8 @@ def print_calendar_for_a_specific_day():
             print_info_table()
             # use user input as paramater and shoe the appointments for that day
             show_appointments_by_day(appointments_list,day)    
-    
+
+
 # main function to run the program
 def main():
     # make the following constant and list as global variables
@@ -409,5 +424,5 @@ def main():
          # case of selection does not match the other cases print a error message while not calling a function but allow for another selection to be made  
           case _:
            print("\nInvalid option")
-#program 
+# call main to start program 
 main()
