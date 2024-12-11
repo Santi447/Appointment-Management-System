@@ -10,7 +10,7 @@
 
 
 # import appointments class and os
-from appoint import Appointment
+from appointment import Appointment
 import os
 # function for info table
 def print_info_table():
@@ -141,7 +141,7 @@ def change_appointment_by_day_time(appointments_list):
     # checks if it valid and find the current appointment
     result = find_appointments_by_time(appointments_list, day, start_hour)
     if not result or result.get_appointment_type() == 0:
-        print("That time slot isnt booked and doesnt need to be changed")
+        print("That time slot isn't booked and doesn't need to be changed")
         return
 
     # saves current appointment details
@@ -301,13 +301,13 @@ def schedule_appointment():
                     # creates the appointment object using the values given by the user
                     # overwrites the available slot in the appointments list
                     appointments_list[i].schedule(client_name,client_phone,appt_type)
-                    print(f"Ok, {client_name}'s appointment is scheduled!")
+                    print(f"OK, {client_name}'s appointment is scheduled!")
                 else:
                     print("Sorry that time slot is booked already!")
             # increments the i/index value by 1 each elements passed
             i += 1
     else:
-        print("Sorry that time slot is not in the weekkly calendar!")    
+        print("Sorry that time slot is not in the weekly calendar!")    
 
 
 # cancel appointments function
@@ -337,7 +337,7 @@ def find_appointments_by_name():
         print("\n**","Find appointment by name","**")
         # ask the user for name input for the paramater in the show appointments by name function
         name = input("Enter Client Name: ").title()
-        print()
+        print(f"Appointments for {name}\n")
         # prints table headings
         print_info_table()
         # prints appointments attributes 
